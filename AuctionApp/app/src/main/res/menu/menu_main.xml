@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/menu_icon"
+        android:orderInCategory="300"
+        android:title="User"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/feedBack"
+                android:title="Send Feedback" />
+
+            <item
+                android:id="@+id/action_exit"
+                android:title="Sign Out" />
+        </menu>
+    </item>
+</menu>
