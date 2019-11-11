@@ -1,6 +1,7 @@
 package com.auctionapp.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.auctionapp.Preferences;
 import com.auctionapp.R;
@@ -21,9 +23,13 @@ import com.auctionapp.dao.DBHelper;
 import com.auctionapp.fragment.AuctionWonFragment;
 import com.auctionapp.fragment.AuctionsFragment;
 import com.auctionapp.fragment.MyAuctionsFragment;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class HomeActivity extends AppCompatActivity {
     private FragmentTabHost mTabHost;
+
+    boolean admin=new Preferences(getApplicationContext()).getAdminSharedPreference()==1;
 
     public static final String TAG_IDS[] = {"Home", "My Auctions", "Won"};
 
@@ -32,17 +38,29 @@ public class HomeActivity extends AppCompatActivity {
 
     private int mImageViewArray[] =
             {R.drawable.tab_home_btn, R.drawable.tab_auction_btn, R.drawable.tab_selfinfo_btn};
+
     private LayoutInflater layoutInflater;
     private FloatingActionButton floatingActionButton;
 
     private static final int CREATE_AUCTION_REQUEST = 1002;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+
+
+
         layoutInflater = LayoutInflater.from(this);
+
+        if(new Preferences(getApplicationContext()).getAdminSharedPreference()==1){
+            Toast.makeText(getApplicationContext(),"ADMIN",Toast.LENGTH_LONG).show();
+        }
+
+
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -75,12 +93,13 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(HomeActivity.this));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -94,8 +113,16 @@ public class HomeActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_exit) {
             new Preferences(this).saveLoggedUserId(-1);
+            new Preferences(this).setAdminSharedPreference(-1);
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
+            finish();
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.feedBack) {
+            startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
             finish();
             return true;
         }

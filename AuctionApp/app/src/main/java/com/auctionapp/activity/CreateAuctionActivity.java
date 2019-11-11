@@ -75,7 +75,7 @@ public class CreateAuctionActivity extends AuctionAppActivity implements View.On
         etEndDate.setOnClickListener(this);
         etEndTime = (EditText) findViewById(R.id.etBidEndTime);
         etEndTime.setOnClickListener(this);
-        imageView = (ImageView) findViewById(R.id.ivItem);
+        imageView = (ImageView) findViewById(R.id.imageViewItem);
         findViewById(R.id.ibTakePhoto).setOnClickListener(this);
         findViewById(R.id.btnSubmitAuction).setOnClickListener(this);
     }
@@ -249,7 +249,7 @@ public class CreateAuctionActivity extends AuctionAppActivity implements View.On
             if (storageDir != null) {
                 if (!storageDir.mkdirs()) {
                     if (!storageDir.exists()) {
-                        Toast.makeText(CreateAuctionActivity.this, R.string.external_storage_not_available, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAuctionActivity.this, "No Dir", Toast.LENGTH_SHORT).show();
                         return null;
                     }
                 }

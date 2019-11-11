@@ -18,6 +18,10 @@ public class AuctionApplication extends Application {
         this.loggedUser = loggedUser;
         if (rememberMe && loggedUser != null) {
             new Preferences(this).saveLoggedUserId(loggedUser.getId());
+
+            if (loggedUser.getEmail().equals("admin@admin.com")){
+             new Preferences(this).setAdminSharedPreference(1);
+            }
         }
     }
 }

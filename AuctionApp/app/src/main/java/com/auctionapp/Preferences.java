@@ -29,6 +29,17 @@ public class Preferences {
         editor.commit();
     }
 
+    public void setAdminSharedPreference(long id) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putLong("admin", id);
+        editor.commit();
+    }
+
+    public long getAdminSharedPreference() {
+        return getSharedPreferences().getLong("admin", -1);
+    }
+
+
     public long getLoggedUserId() {
         return getSharedPreferences().getLong(LOGGED_USER_ID, -1);
     }

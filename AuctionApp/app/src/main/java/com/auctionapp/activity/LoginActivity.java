@@ -324,6 +324,7 @@ public class LoginActivity extends AuctionAppActivity implements LoaderCallbacks
                 registerUser(mEmail, mPassword);
             } else if (registedUser.getPassword().equals(mPassword)) {
                 getApplicationContext().setLoggedUser(registedUser, mRememberMe);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -348,6 +349,7 @@ public class LoginActivity extends AuctionAppActivity implements LoaderCallbacks
                     public void onClick(DialogInterface dialog, int buttonId) {
                         RegisterUserTask mRegisterTask = new RegisterUserTask(mEmail, mPassword);
                         mRegisterTask.execute((Void) null);
+
                     }
                 });
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No",
@@ -366,7 +368,7 @@ public class LoginActivity extends AuctionAppActivity implements LoaderCallbacks
         private final String mEmail;
         private final String mPassword;
 
-        RegisterUserTask(String email, String password) {
+        public RegisterUserTask(String email, String password) {
             mEmail = email;
             mPassword = password;
         }
